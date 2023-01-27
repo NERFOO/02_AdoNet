@@ -88,7 +88,6 @@ namespace _02_AdoNet
             this.lstSalas.Items.Clear();
             this.command.Parameters.Clear();
 
-            this.reader.Close();
             this.connection.Close();
             this.CargarSalas();
         }
