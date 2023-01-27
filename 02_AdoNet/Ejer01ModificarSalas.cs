@@ -27,7 +27,7 @@ namespace _02_AdoNet
             string connectionStringCasa = @"Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=sa;Password=MCSD2022";
 
             //SE ESTABLECE LA CONEXION DE CONSUMO
-            this.connection = new SqlConnection(connectionStringCasa);
+            this.connection = new SqlConnection(connectionString);
 
             this.command = new SqlCommand();
             this.command.Connection = this.connection;
@@ -40,7 +40,7 @@ namespace _02_AdoNet
         private void CargarSalas()
         {
             //CREACION Y DECLARACION DE LA CONSULTA A LA BBDD
-            string consulta = "SELECT NOMBRE FROM SALAPRUEBA GROUP BY NOMBRE";
+            string consulta = "SELECT NOMBRE FROM SALA GROUP BY NOMBRE";
             //DECLARACION DEL TIPO DE CONSULTA
             this.command.CommandType = CommandType.Text;
             this.command.CommandText = consulta;
@@ -70,7 +70,7 @@ namespace _02_AdoNet
             string nombreSala = this.txtNewName.Text;
             string nomLista = this.lstSalas.SelectedItem.ToString();
 
-            string consulta = "UPDATE SALAPRUEBA SET NOMBRE = @nombreSala WHERE NOMBRE = @nomLista";
+            string consulta = "UPDATE SALA SET NOMBRE = @nombreSala WHERE NOMBRE = @nomLista";
 
             SqlParameter paramNombreSala = new SqlParameter("@nombreSala", nombreSala);
             SqlParameter paramNomLista = new SqlParameter("@nomLista", nomLista);
@@ -82,8 +82,8 @@ namespace _02_AdoNet
 
             this.connection.Open();
 
-            this.reader = this.command.ExecuteReader();
-            MessageBox.Show("Se ha actualizado la sala");
+            int modificados = this.command.ExecuteNonQuery();
+            MessageBox.Show("Se han actualizado " + modificados + " salas");
 
             this.lstSalas.Items.Clear();
             this.command.Parameters.Clear();
