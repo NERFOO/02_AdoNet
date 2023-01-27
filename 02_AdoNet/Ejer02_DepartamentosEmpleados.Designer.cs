@@ -75,6 +75,7 @@
             this.lstEmpleados.Name = "lstEmpleados";
             this.lstEmpleados.Size = new System.Drawing.Size(120, 169);
             this.lstEmpleados.TabIndex = 3;
+            this.lstEmpleados.SelectedIndexChanged += new System.EventHandler(this.lstEmpleados_SelectedIndexChanged);
             // 
             // label3
             // 
