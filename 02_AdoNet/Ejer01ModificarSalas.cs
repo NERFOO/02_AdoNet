@@ -21,7 +21,7 @@ namespace _02_AdoNet
 
         public Ejer01ModificarSalas()
         {
-            InitializeComponent();
+            InitializeComponent();  
             //CADENA DE CONEXION CON SQL
             string connectionString = @"Data Source=LOCALHOST\DESARROLLO;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=sa;Password=MCSD2022";
             string connectionStringCasa = @"Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=sa;Password=MCSD2022";
