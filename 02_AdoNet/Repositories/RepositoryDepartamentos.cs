@@ -17,15 +17,49 @@ namespace _02_AdoNet.Repositories
 
         public RepositoryDepartamentos()
         {
+            string connectionStringCasa = @"Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=sa;Password=MCSD2022";
             string connectionString = @"Data Source=LOCALHOST\DESARROLLO;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=sa;Password=MCSD2022";
-            this.connection = new SqlConnection(connectionString);
+            this.connection = new SqlConnection(connectionStringCasa);
             this.command = new SqlCommand();
             this.command.Connection = this.connection;
         }
 
+        public Departamento GetEmpleado(string dNombre)
+        {
+            string consulta = "SELECT * FROM DEPTPRUEBA WHERE DNOMBRE = @DNOMBRE";
+            SqlParameter paramNombre = new SqlParameter("@DNOMBRE", dNombre);
+            this.command.Parameters.Add(paramNombre);
+
+            Departamento empleado = new Departamento();
+
+            this.command.CommandType = CommandType.Text;
+            this.command.CommandText = consulta;
+
+            this.connection.Open();
+
+            this.reader = this.command.ExecuteReader();
+
+            while (this.reader.Read())
+            {
+                int id = int.Parse(this.reader["DEPT_NO"].ToString());
+                string nombre = this.reader["DNOMBRE"].ToString();
+                string localidad = this.reader["LOC"].ToString();
+
+                empleado.IdDepartamento = id;
+                empleado.Nombre = nombre;
+                empleado.Localidad = localidad;
+            }
+
+            this.connection.Close();
+            this.reader.Close();
+            this.command.Parameters.Clear();
+
+            return empleado;
+        }
+
         public List<Departamento> GetDepartamentos()
         {
-            string consulta = "SELECT * FROM DEPT";
+            string consulta = "SELECT * FROM DEPTPRUEBA";
 
             List<Departamento> departamentos = new List<Departamento>();
 
@@ -59,7 +93,7 @@ namespace _02_AdoNet.Repositories
 
         public int DeleteDepartamento(int id)
         {
-            string consulta = "DELETE FROM DEPT WHERE DEPT_NO = @NUMERO";
+            string consulta = "DELETE FROM DEPTPRUEBA WHERE DEPT_NO = @NUMERO";
 
             SqlParameter paramId = new SqlParameter("@NUMERO", id);
 
@@ -80,7 +114,7 @@ namespace _02_AdoNet.Repositories
 
         public int UpdateDepartamento(int id, string nombre, string localidad)
         {
-            string consulta = "UPDATE DEPT SET DNOMBRE = @NOMBRE, LOC = @LOCALIDAD WHERE DEPT_NO = @ID";
+            string consulta = "UPDATE DEPTPRUEBA SET DNOMBRE = @NOMBRE, LOC = @LOCALIDAD WHERE DEPT_NO = @ID";
 
             SqlParameter paramNombre = new SqlParameter("@NOMBRE", nombre);
             SqlParameter paramLocalidad = new SqlParameter("@LOCALIDAD", localidad);
@@ -90,7 +124,7 @@ namespace _02_AdoNet.Repositories
             this.command.Parameters.Add(paramLocalidad);
             this.command.Parameters.Add(paramId);
 
-            this.command.CommandType = System.Data.CommandType.Text;
+            this.command.CommandType = CommandType.Text;
             this.command.CommandText = consulta;
 
             this.connection.Open();
@@ -105,7 +139,7 @@ namespace _02_AdoNet.Repositories
 
         public int InsertDepartamento(int id, string nombre, string localidad)
         {
-            string consulta = "INSERT INTO DEPT VALUES (@NUM, @NOM, @LOC)";
+            string consulta = "INSERT INTO DEPTPRUEBA VALUES (@NUM, @NOM, @LOC)";
             SqlParameter paramNum = new SqlParameter("@NUM", id);
             SqlParameter paramNom = new SqlParameter("@NOM", nombre);
             SqlParameter paramLoc = new SqlParameter("@LOC", localidad);
