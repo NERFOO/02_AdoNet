@@ -133,12 +133,27 @@ namespace _02_AdoNet.Repositories
 
             this.connection.Close();
             this.command.Parameters.Clear();
+            this.reader.Close();
 
             return modificados;
         }
 
-        public int InsertDepartamento(int id, string nombre, string localidad)
+        private int GetMaxIdDepart()
         {
+            string sql = "SELECT MAX(DEPT_NO) + 1 AS MAXIMO FROM DEPT";
+            this.command.CommandType = CommandType.Text;
+            this.command.CommandText = sql;
+            this.connection.Open();
+            //Si la consulta solamente contiene una fila y un dato
+            //no es necesario un reader, podemos usar el metodo executescalar()
+            int max = Convert.ToInt32(this.command.ExecuteScalar());
+            this.connection.Close();
+            return max;
+        }
+
+        public int InsertDepartamento(string nombre, string localidad)
+        {
+            int id = this.GetMaxIdDepart();
             string consulta = "INSERT INTO DEPTPRUEBA VALUES (@NUM, @NOM, @LOC)";
             SqlParameter paramNum = new SqlParameter("@NUM", id);
             SqlParameter paramNom = new SqlParameter("@NOM", nombre);

@@ -16,6 +16,7 @@ namespace _02_AdoNet
     {
 
         RepositoryDepartamentos repo;
+        int idModificar;
 
         public Ejer03_AccionDepartamento()
         {
@@ -26,7 +27,7 @@ namespace _02_AdoNet
 
         public void GetDepartamentos()
         {
-            List<Departamento> listaDepartamentos = repo.GetDepartamentos();
+            List<Departamento> listaDepartamentos = this.repo.GetDepartamentos();
             this.lstDepartamentos.Items.Clear();
             foreach(Departamento dept in listaDepartamentos)
             {
@@ -36,35 +37,39 @@ namespace _02_AdoNet
 
         private void btnCrear_Click(object sender, EventArgs e)
         {
-            int id = int.Parse(this.txtId.Text);
             string departamento = this.txtDepartamento.Text;
             string localidad = this.txtLocalidad.Text;
 
-            repo.InsertDepartamento(id, departamento, localidad);
+            this.repo.InsertDepartamento(departamento, localidad);
             this.GetDepartamentos();
         }
 
         private void lstDepartamentos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Departamento listaDepartamentos = repo.GetEmpleado(this.lstDepartamentos.SelectedItem.ToString());
-            this.txtId.Text = listaDepartamentos.IdDepartamento.ToString();
-            this.txtDepartamento.Text = listaDepartamentos.Nombre.ToString();
-            this.txtLocalidad.Text = listaDepartamentos.Localidad.ToString();
+            if (this.lstDepartamentos.SelectedItems.Count != -1)
+            {
+                Departamento listaDepartamentos = this.repo.GetEmpleado(this.lstDepartamentos.SelectedItem.ToString());
+                this.txtId.Text = listaDepartamentos.IdDepartamento.ToString();
+                this.txtDepartamento.Text = listaDepartamentos.Nombre.ToString();
+                this.txtLocalidad.Text = listaDepartamentos.Localidad.ToString();
+
+                this.idModificar = int.Parse(this.txtId.Text);
+            }
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            int id = int.Parse(this.txtId.Text);
+            int id = this.idModificar;
             string departamento = this.txtDepartamento.Text;
             string localidad = this.txtLocalidad.Text;
 
-            repo.UpdateDepartamento(id, departamento, localidad);
+            this.repo.UpdateDepartamento(id, departamento, localidad);
             this.GetDepartamentos();
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            repo.DeleteDepartamento(int.Parse(this.txtId.Text));
+            this.repo.DeleteDepartamento(int.Parse(this.txtId.Text));
             this.GetDepartamentos();
         }
     }
