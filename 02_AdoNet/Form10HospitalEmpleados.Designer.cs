@@ -43,7 +43,7 @@
             // txtPersonas
             // 
             this.txtPersonas.Location = new System.Drawing.Point(163, 270);
-            this.txtPersonas.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtPersonas.Margin = new System.Windows.Forms.Padding(5);
             this.txtPersonas.Name = "txtPersonas";
             this.txtPersonas.Size = new System.Drawing.Size(155, 32);
             this.txtPersonas.TabIndex = 21;
@@ -61,7 +61,7 @@
             // txtMedia
             // 
             this.txtMedia.Location = new System.Drawing.Point(163, 192);
-            this.txtMedia.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtMedia.Margin = new System.Windows.Forms.Padding(5);
             this.txtMedia.Name = "txtMedia";
             this.txtMedia.Size = new System.Drawing.Size(155, 32);
             this.txtMedia.TabIndex = 19;
@@ -79,7 +79,7 @@
             // txtSuma
             // 
             this.txtSuma.Location = new System.Drawing.Point(163, 128);
-            this.txtSuma.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtSuma.Margin = new System.Windows.Forms.Padding(5);
             this.txtSuma.Name = "txtSuma";
             this.txtSuma.Size = new System.Drawing.Size(155, 32);
             this.txtSuma.TabIndex = 17;
@@ -99,7 +99,7 @@
             this.lstPlantillaDoctores.FormattingEnabled = true;
             this.lstPlantillaDoctores.ItemHeight = 25;
             this.lstPlantillaDoctores.Location = new System.Drawing.Point(423, 53);
-            this.lstPlantillaDoctores.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.lstPlantillaDoctores.Margin = new System.Windows.Forms.Padding(5);
             this.lstPlantillaDoctores.Name = "lstPlantillaDoctores";
             this.lstPlantillaDoctores.Size = new System.Drawing.Size(246, 379);
             this.lstPlantillaDoctores.TabIndex = 14;
@@ -118,10 +118,11 @@
             // 
             this.comboBoxHospitales.FormattingEnabled = true;
             this.comboBoxHospitales.Location = new System.Drawing.Point(22, 53);
-            this.comboBoxHospitales.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.comboBoxHospitales.Margin = new System.Windows.Forms.Padding(5);
             this.comboBoxHospitales.Name = "comboBoxHospitales";
             this.comboBoxHospitales.Size = new System.Drawing.Size(221, 33);
             this.comboBoxHospitales.TabIndex = 12;
+            this.comboBoxHospitales.SelectedIndexChanged += new System.EventHandler(this.comboBoxHospitales_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -149,7 +150,7 @@
             this.Controls.Add(this.comboBoxHospitales);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "Form10HospitalEmpleados";
             this.Text = "Form10HospitalEmpleados";
             this.ResumeLayout(false);

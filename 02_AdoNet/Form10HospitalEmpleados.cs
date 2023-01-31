@@ -31,8 +31,9 @@ namespace _02_AdoNet
         public Form10HospitalEmpleados()
         {
             InitializeComponent();
+            string connectionStringCasa = @"Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=sa;Password=MCSD2022";
             string connectionString = @"Data Source=LOCALHOST\DESARROLLO;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=sa;Password=MCSD2022";
-            this.connection = new SqlConnection(connectionString);
+            this.connection = new SqlConnection(connectionStringCasa);
             this.command = new SqlCommand();
             this.command.Connection = this.connection;
             this.CargarHospitales();
@@ -53,6 +54,56 @@ namespace _02_AdoNet
             }
             this.reader.Close();
             this.connection.Close();
+        }
+
+        private void comboBoxHospitales_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //DECLARAMOS LOS PARAMETROS DE SALIDA
+            SqlParameter pamsuma = new SqlParameter();
+            pamsuma.ParameterName = "@SUMA";
+            pamsuma.Value = 0;
+            pamsuma.Direction = ParameterDirection.Output;
+            this.command.Parameters.Add(pamsuma);
+
+            SqlParameter pammedia = new SqlParameter("@MEDIA", 0);
+            pammedia.Direction = ParameterDirection.Output;
+            this.command.Parameters.Add(pammedia);
+
+            SqlParameter pampersonas = new SqlParameter();
+            pampersonas.ParameterName = "@PERSONAS";
+            pampersonas.Value = 0;
+            pampersonas.Direction = ParameterDirection.Output;
+            this.command.Parameters.Add(pampersonas);
+
+
+            string hospital = this.comboBoxHospitales.SelectedItem.ToString();
+
+            SqlParameter paramHospital = new SqlParameter("@NOM", hospital);
+            this.command.Parameters.Add(paramHospital);
+
+            this.command.CommandType = CommandType.StoredProcedure;
+            this.command.CommandText = "SP_EMPLEADOS_HOSPITAL";
+
+            this.connection.Open();
+            this.reader = this.command.ExecuteReader();
+
+            this.lstPlantillaDoctores.Items.Clear();
+
+            while(this.reader.Read())
+            {
+                string trabajador = this.reader["APELLIDO"].ToString();
+                string salario = this.reader["SALARIO"].ToString();
+
+                this.lstPlantillaDoctores.Items.Add(trabajador + " - " + salario);
+            }
+            this.reader.Close();
+
+            this.txtSuma.Text = pamsuma.Value.ToString();
+            this.txtMedia.Text = pammedia.Value.ToString();
+            this.txtPersonas.Text = pampersonas.Value.ToString();
+
+            this.connection.Close();
+            this.command.Parameters.Clear();
         }
     }
 }
