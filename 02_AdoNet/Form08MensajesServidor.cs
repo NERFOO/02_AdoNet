@@ -21,7 +21,15 @@ EXEC SP_DEPARTAMENTOS
 ALTER PROCEDURE SP_INSERT_DEPARTAMENTO
 (@NUM INT, @NOM NVARCHAR(50), @LOC NVARCHAR (50))
 AS
+	--NO QUEREMOS LOCALIDADES EN TERUEL
+	IF(@LOC = 'TERUEL')
+	BEGIN
+		PRINT 'TERUEL NO EXISTE'
+	END
+	ELSE
+	BEGIN
 	INSERT INTO DEPT VALUES (@NUM, @NOM, @LOC)
+	END
 GO
  */
 #endregion
@@ -42,7 +50,13 @@ namespace _02_AdoNet
             this.connection = new SqlConnection(connectionString);
             this.command = new SqlCommand();
             this.command.Connection = this.connection;
+            this.connection.InfoMessage += Connection_InfoMessage;
             this.CargarDepartamentos();
+        }
+
+        private void Connection_InfoMessage(object sender, SqlInfoMessageEventArgs e)
+        {
+            this.respuesta.Text = e.Message;
         }
 
         private void CargarDepartamentos()
@@ -66,6 +80,8 @@ namespace _02_AdoNet
 
         private void btnInsertar_Click(object sender, EventArgs e)
         {
+            this.respuesta.Text = "";
+
             int id = int.Parse(this.txtId.Text);
             string nom = this.txtNombre.Text;
             string loc = this.txtLocalidad.Text;

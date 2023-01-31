@@ -37,6 +37,7 @@
             this.btnInsertar = new System.Windows.Forms.Button();
             this.lstDepartamentos = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.respuesta = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -115,11 +116,22 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Departamentos";
             // 
+            // respuesta
+            // 
+            this.respuesta.AutoSize = true;
+            this.respuesta.ForeColor = System.Drawing.Color.Red;
+            this.respuesta.Location = new System.Drawing.Point(54, 350);
+            this.respuesta.Name = "respuesta";
+            this.respuesta.Size = new System.Drawing.Size(79, 15);
+            this.respuesta.TabIndex = 9;
+            this.respuesta.Text = "mensaje Error";
+            // 
             // Form08MensajesServidor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.respuesta);
             this.Controls.Add(this.lstDepartamentos);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btnInsertar);
@@ -147,5 +159,6 @@
         private Button btnInsertar;
         private ListBox lstDepartamentos;
         private Label label4;
+        private Label respuesta;
     }
 }
