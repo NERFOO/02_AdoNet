@@ -19,14 +19,14 @@ namespace _02_AdoNet.Repositories
         {
             string connectionStringCasa = @"Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=sa;Password=MCSD2022";
             string connectionString = @"Data Source=LOCALHOST\DESARROLLO;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=sa;Password=MCSD2022";
-            this.connection = new SqlConnection(connectionStringCasa);
+            this.connection = new SqlConnection(connectionString);
             this.command = new SqlCommand();
             this.command.Connection = this.connection;
         }
 
         public Departamento GetEmpleado(string dNombre)
         {
-            string consulta = "SELECT * FROM DEPTPRUEBA WHERE DNOMBRE = @DNOMBRE";
+            string consulta = "SELECT * FROM DEPT WHERE DNOMBRE = @DNOMBRE";
             SqlParameter paramNombre = new SqlParameter("@DNOMBRE", dNombre);
             this.command.Parameters.Add(paramNombre);
 
@@ -59,7 +59,7 @@ namespace _02_AdoNet.Repositories
 
         public List<Departamento> GetDepartamentos()
         {
-            string consulta = "SELECT * FROM DEPTPRUEBA";
+            string consulta = "SELECT * FROM DEPT";
 
             List<Departamento> departamentos = new List<Departamento>();
 
@@ -93,7 +93,7 @@ namespace _02_AdoNet.Repositories
 
         public int DeleteDepartamento(int id)
         {
-            string consulta = "DELETE FROM DEPTPRUEBA WHERE DEPT_NO = @NUMERO";
+            string consulta = "DELETE FROM DEPT WHERE DEPT_NO = @NUMERO";
 
             SqlParameter paramId = new SqlParameter("@NUMERO", id);
 
@@ -114,7 +114,7 @@ namespace _02_AdoNet.Repositories
 
         public int UpdateDepartamento(int id, string nombre, string localidad)
         {
-            string consulta = "UPDATE DEPTPRUEBA SET DNOMBRE = @NOMBRE, LOC = @LOCALIDAD WHERE DEPT_NO = @ID";
+            string consulta = "UPDATE DEPT SET DNOMBRE = @NOMBRE, LOC = @LOCALIDAD WHERE DEPT_NO = @ID";
 
             SqlParameter paramNombre = new SqlParameter("@NOMBRE", nombre);
             SqlParameter paramLocalidad = new SqlParameter("@LOCALIDAD", localidad);
@@ -154,7 +154,7 @@ namespace _02_AdoNet.Repositories
         public int InsertDepartamento(string nombre, string localidad)
         {
             int id = this.GetMaxIdDepart();
-            string consulta = "INSERT INTO DEPTPRUEBA VALUES (@NUM, @NOM, @LOC)";
+            string consulta = "INSERT INTO DEPT VALUES (@NUM, @NOM, @LOC)";
             SqlParameter paramNum = new SqlParameter("@NUM", id);
             SqlParameter paramNom = new SqlParameter("@NOM", nombre);
             SqlParameter paramLoc = new SqlParameter("@LOC", localidad);
