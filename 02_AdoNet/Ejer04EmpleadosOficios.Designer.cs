@@ -70,6 +70,7 @@
             this.btnEliminar.TabIndex = 3;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // label2
             // 
@@ -111,10 +112,12 @@
             // 
             // lstViewEmpleados
             // 
+            this.lstViewEmpleados.Alignment = System.Windows.Forms.ListViewAlignment.Default;
             this.lstViewEmpleados.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Apellido,
             this.Oficio,
             this.Salario});
+            this.lstViewEmpleados.FullRowSelect = true;
             this.lstViewEmpleados.Location = new System.Drawing.Point(49, 202);
             this.lstViewEmpleados.Margin = new System.Windows.Forms.Padding(5);
             this.lstViewEmpleados.Name = "lstViewEmpleados";

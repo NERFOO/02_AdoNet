@@ -65,14 +65,14 @@ namespace _02_AdoNet.Repositories
 
 			while(this.reader.Read())
 			{
-				//int id = int.Parse(this.reader["EMP_NO"].ToString());
+				int id = int.Parse(this.reader["EMP_NO"].ToString());
                 string apellido = this.reader["APELLIDO"].ToString();
                 string oficio = this.reader["OFICIO"].ToString();
                 int salario = int.Parse(this.reader["SALARIO"].ToString());
 
 				Empleado emp = new Empleado();
 
-				//emp.NumEmpleado = id;
+				emp.NumEmpleado = id;
 				emp.Apellido = apellido;
 				emp.Ocupacion = oficio;
 				emp.Salario = salario;
@@ -101,14 +101,14 @@ namespace _02_AdoNet.Repositories
 
             while (this.reader.Read())
             {
-                //int id = int.Parse(this.reader["EMP_NO"].ToString());
+                int id = int.Parse(this.reader["EMP_NO"].ToString());
                 string apellido = this.reader["APELLIDO"].ToString();
                 string oficio = this.reader["OFICIO"].ToString();
                 int salario = int.Parse(this.reader["SALARIO"].ToString());
 
                 Empleado emp = new Empleado();
 
-                //emp.NumEmpleado = id;
+                emp.NumEmpleado = id;
                 emp.Apellido = apellido;
                 emp.Ocupacion = oficio;
                 emp.Salario = salario;
@@ -122,10 +122,22 @@ namespace _02_AdoNet.Repositories
             return empleados;
         }
 
-		public int DeleteUser()
+		public int DeleteUser(int id)
 		{
+			string consulta = "DELETE FROM EMP WHERE EMP_NO = @NUM";
+			SqlParameter paramNum = new SqlParameter("@NUM", id);
+			this.command.Parameters.Add(paramNum);
 
-			return 0;
+			this.command.CommandType = CommandType.Text;
+			this.command.CommandText = consulta;
+
+			this.connection.Open();
+			int eliminados = this.command.ExecuteNonQuery();
+
+			this.connection.Close();
+			this.command.Parameters.Clear();
+
+			return eliminados;
 		}
     }
 }
