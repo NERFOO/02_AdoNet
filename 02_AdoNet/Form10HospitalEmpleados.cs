@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using _02_AdoNet.Helpers;
 
 #region
 /*
@@ -30,10 +32,14 @@ namespace _02_AdoNet
 
         public Form10HospitalEmpleados()
         {
+
             InitializeComponent();
-            string connectionStringCasa = @"Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=sa;Password=MCSD2022";
-            string connectionString = @"Data Source=LOCALHOST\DESARROLLO;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=sa;Password=MCSD2022";
-            this.connection = new SqlConnection(connectionStringCasa);
+            //string connectionStringCasa = @"Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=sa;Password=MCSD2022";
+            //string connectionString = @"Data Source=LOCALHOST\DESARROLLO;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=sa;Password=MCSD2022";
+
+            //ESTA VARIABLE IRIA EN LA CONEXION SI NO SE IMPLEMENTA DIRECTAMENTE
+            //string connectionString = HelperConfiguration.GetConnectionString();
+            this.connection = new SqlConnection(HelperConfiguration.GetConnectionString());
             this.command = new SqlCommand();
             this.command.Connection = this.connection;
             this.CargarHospitales();
