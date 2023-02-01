@@ -85,6 +85,16 @@ namespace _02_AdoNet
             }
         }
 
+        private void btnIncremento_Click(object sender, EventArgs e)
+        {
+            int incremento = int.Parse(this.txtIncremento.Text);
+            string oficio = this.comboBoxOficios.SelectedItem.ToString();
+            repo.IncrementoSalarial(incremento, oficio);
+
+            string nombre = this.comboBoxOficios.SelectedItem.ToString();
+            this.PintarEmpleados(nombre);
+        }
+
         private void lstViewEmpleados_SelectedIndexChanged(object sender, EventArgs e)
         {
             //MessageBox.Show(lstViewEmpleados.SelectedItems[0].SubItems[3].Text);

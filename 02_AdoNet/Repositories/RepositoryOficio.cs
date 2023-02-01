@@ -8,6 +8,20 @@ using System.Data.SqlClient;
 using System.Data;
 using _02_AdoNet.Helpers;
 
+#region PROCEDURES
+/*
+ 
+ALTER PROCEDURE SP_INCREMENTO_EMP_DEPT (@INCREMENTO INT, @OFICIO NVARCHAR (50))
+AS
+	SELECT APELLIDO, SALARIO, DEPT.DEPT_NO FROM EMP
+	INNER JOIN DEPT
+	ON EMP.DEPT_NO = DEPT.DEPT_NO
+	ORDER BY DEPT_NO
+	UPDATE EMP SET SALARIO = SALARIO + @INCREMENTO WHERE OFICIO = @OFICIO
+GO
+ */
+#endregion
+
 namespace _02_AdoNet.Repositories
 {
 	public class RepositoryOficio
@@ -138,6 +152,26 @@ namespace _02_AdoNet.Repositories
 			this.command.Parameters.Clear();
 
 			return eliminados;
+		}
+
+		public int IncrementoSalarial(int incremento, string dept)
+		{
+            SqlParameter paramIncremento = new SqlParameter("@INCREMENTO", incremento);
+            SqlParameter paramOficio = new SqlParameter("@OFICIO", dept);
+
+            this.command.Parameters.Add(paramIncremento);
+            this.command.Parameters.Add(paramOficio);
+
+            this.command.CommandType = CommandType.StoredProcedure;
+            this.command.CommandText = "SP_INCREMENTO_EMP_DEPT";
+
+			this.connection.Open();
+			int actualizados = this.command.ExecuteNonQuery();
+
+			this.connection.Close();
+			this.command.Parameters.Clear();
+
+            return actualizados;
 		}
     }
 }

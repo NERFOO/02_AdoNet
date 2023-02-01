@@ -99,6 +99,7 @@
             this.btnIncremento.TabIndex = 6;
             this.btnIncremento.Text = "Incrementar";
             this.btnIncremento.UseVisualStyleBackColor = true;
+            this.btnIncremento.Click += new System.EventHandler(this.btnIncremento_Click);
             // 
             // label3
             // 
