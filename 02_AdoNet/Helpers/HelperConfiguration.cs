@@ -15,7 +15,7 @@ namespace _02_AdoNet.Helpers
             IConfigurationBuilder builder = new ConfigurationBuilder().AddJsonFile("config.json", true, true);
             IConfigurationRoot config = builder.Build();
 
-            string connectionString = config["SqlHospitalCasa"];
+            string connectionString = config["SqlHospital"];
 
             return connectionString;
         }

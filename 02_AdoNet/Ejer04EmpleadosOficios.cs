@@ -46,6 +46,9 @@ namespace _02_AdoNet
 				it.SubItems.Add(emp.Ocupacion);
 				it.SubItems.Add(emp.Salario.ToString());
 				it.SubItems.Add(emp.NumEmpleado.ToString());
+
+				//it.Tag = emp.NumEmpleado;
+
 				this.lstViewEmpleados.Items.Add(it);
 			}
 		}
@@ -74,8 +77,12 @@ namespace _02_AdoNet
 
 		private void btnEliminar_Click(object sender, EventArgs e)
 		{
-			if (this.lstViewEmpleados.SelectedItems.Count != -1)
+			if (this.lstViewEmpleados.SelectedItems.Count != 0)
 			{
+
+				//ListViewItem itSeleccionado = this.lstViewEmpleados.SelectedItems[0];
+				//int idEmpleado = int.Parse(itSeleccionado.Tag.ToString());
+
 				int eliminado = this.repo.DeleteUser(int.Parse(this.lstViewEmpleados.SelectedItems[0].SubItems[3].Text));
 
 				string nombre = this.comboBoxOficios.SelectedItem.ToString();
